@@ -89,7 +89,7 @@ export function CalendarView({
                       <p className="text-[10px] md:text-xs font-medium text-white/90 truncate">
                         {entry.name}
                       </p>
-                      <p className="text-xs md:text-sm font-semibold text-white line-clamp-2 leading-tight break-words overflow-hidden">
+                      <p className="text-xs md:text-sm font-semibold text-white line-clamp-3 leading-tight break-words overflow-hidden">
                         {entry.title}
                       </p>
                     </div>
@@ -116,7 +116,7 @@ export function CalendarView({
                         className={`${
                           hasValidUrl
                             ? "h-6 px-2 text-[10px] md:text-xs text-white hover:bg-white/20 hover:text-white shrink-0"
-                            : "h-8 px-3 text-xs md:text-sm text-muted-foreground hover:text-foreground hover:bg-muted w-full"
+                            : "h-8 px-3 text-xs md:text-sm text-white hover:bg-white/20 hover:text-white w-full"
                         }`}
                         aria-label={`12月${day}日の記事を編集`}
                       >
