@@ -1,11 +1,14 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { M_PLUS_Rounded_1c } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const mPlusRounded = M_PLUS_Rounded_1c({ 
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  variable: "--font-m-plus-rounded"
+})
 
 export const metadata: Metadata = {
   title: "アドベントカレンダー 2025",
@@ -20,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`font-sans antialiased`}>
+      <body className={`${mPlusRounded.variable} font-sans antialiased`}>
         {children}
         <Analytics />
       </body>
