@@ -79,13 +79,11 @@ export function Calendar({ entries }: CalendarProps) {
 
       {viewMode === "calendar" ? (
         <CalendarView
-          entries={entries}
           getEntryForDay={getEntryForDay}
           handleEditClick={handleEditClick}
         />
       ) : (
         <StackView
-          entries={entries}
           getEntryForDay={getEntryForDay}
           handleEditClick={handleEditClick}
         />

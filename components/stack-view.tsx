@@ -9,7 +9,6 @@ import { Edit, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
 type StackViewProps = {
-  entries: CalendarEntry[];
   getEntryForDay: (day: number) => CalendarEntry | undefined;
   handleEditClick: (day: number) => void;
 };
@@ -32,11 +31,7 @@ function getDayOfWeek(day: number): string {
   return days[dayOfWeek];
 }
 
-export function StackView({
-  entries,
-  getEntryForDay,
-  handleEditClick,
-}: StackViewProps) {
+export function StackView({ getEntryForDay, handleEditClick }: StackViewProps) {
   const daysInMonth = 25;
 
   return (

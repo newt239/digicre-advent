@@ -1,7 +1,5 @@
 "use client";
 
-import type React from "react";
-
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import type { CalendarEntry } from "@/app/actions";
@@ -9,7 +7,6 @@ import { Edit, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
 type CalendarViewProps = {
-  entries: CalendarEntry[];
   getEntryForDay: (day: number) => CalendarEntry | undefined;
   handleEditClick: (day: number) => void;
 };
@@ -25,7 +22,6 @@ function isValidUrl(urlString: string): boolean {
 }
 
 export function CalendarView({
-  entries,
   getEntryForDay,
   handleEditClick,
 }: CalendarViewProps) {
