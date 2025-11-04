@@ -23,7 +23,7 @@ export default async function Home() {
             デジクリ
           </p>
           <p className="text-muted-foreground text-base md:text-lg">
-            12月25日まで、1日1本の記事をみんなで投稿
+            12月25日まで、毎日みんなで記事を投稿
           </p>
         </header>
 
@@ -37,7 +37,7 @@ export default async function Home() {
                 </div>
               </AccordionTrigger>
               <AccordionContent>
-                アドベントカレンダーは、12月1日から12月25日（クリスマス）までの期間に、毎日1本ずつ記事を投稿していくイベントです。記事の内容は問いません。自分の創作に関することや最近あったできごとなど、自由に投稿してください。昨年度企画紹介記事「
+                アドベントカレンダーは、12月1日から12月25日（クリスマス）までの期間に、毎日記事を投稿していくイベントです。記事の内容は問いません。自分の創作に関することや最近あったできごとなど、自由に投稿してください。昨年度企画紹介記事「
                 <a
                   href="https://note.com/muyuu_/n/na6b4dba212e8"
                   target="_blank"

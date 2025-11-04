@@ -13,11 +13,11 @@ const mPlusRounded = M_PLUS_Rounded_1c({
 export const metadata: Metadata = {
   title: "デジクリ アドベントカレンダー 2025",
   description:
-    "12月25日まで、1日1本の記事をみんなで投稿していくアドベントカレンダー",
+    "12月25日まで、毎日みんなで記事を投稿していくアドベントカレンダー",
   openGraph: {
     title: "デジクリ アドベントカレンダー 2025",
     description:
-      "12月25日まで、1日1本の記事をみんなで投稿していくアドベントカレンダー",
+      "12月25日まで、毎日みんなで記事を投稿していくアドベントカレンダー",
     type: "website",
     locale: "ja_JP",
     siteName: "デジクリ アドベントカレンダー",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "デジクリ アドベントカレンダー 2025",
     description:
-      "12月25日まで、1日1本の記事をみんなで投稿していくアドベントカレンダー",
+      "12月25日まで、毎日みんなで記事を投稿していくアドベントカレンダー",
     images: ["/opengraph-image"],
   },
 };

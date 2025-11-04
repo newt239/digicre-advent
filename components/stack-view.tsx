@@ -1,7 +1,5 @@
 "use client";
 
-import type React from "react";
-
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import type { CalendarEntry } from "@/app/actions";
@@ -24,8 +22,8 @@ function isValidUrl(urlString: string): boolean {
 }
 
 function getDayOfWeek(day: number): string {
-  // 2024年12月1日は日曜日
-  const date = new Date(2024, 11, day); // 月は0始まりなので11が12月
+  // 2025年12月1日は月曜日
+  const date = new Date(2025, 11, day); // 月は0始まりなので11が12月
   const dayOfWeek = date.getDay();
   const days = ["日", "月", "火", "水", "木", "金", "土"];
   return days[dayOfWeek];
