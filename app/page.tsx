@@ -20,7 +20,7 @@ export default async function Home() {
             Advent Calendar
           </h1>
           <p className="text-xl md:text-2xl font-semibold text-christmas-green mb-3">
-            デジクリ
+            デジクリ 2025
           </p>
           <p className="text-muted-foreground text-base md:text-lg">
             12月25日まで、毎日みんなで記事を投稿

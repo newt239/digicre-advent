@@ -16,8 +16,10 @@ type ViewMode = "calendar" | "stack";
 
 export function Calendar({ entries }: CalendarProps) {
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
+  const [selectedPage, setSelectedPage] = useState<1 | 2>(1);
   const [viewMode, setViewMode] = useState<ViewMode>("calendar");
   const [isMounted, setIsMounted] = useState(false);
+  const registeredCount = entries.length;
 
   // スマートフォンではStack、デスクトップではCalendarをデフォルト表示
   useEffect(() => {
@@ -36,7 +38,7 @@ export function Calendar({ entries }: CalendarProps) {
   }, []);
 
   const getEntryForDay = (day: number) => {
-    return entries.find((e) => e.day === day);
+    return entries.find((e) => e.day === day && e.page === selectedPage);
   };
 
   const handleEditClick = (day: number) => {
@@ -46,34 +48,53 @@ export function Calendar({ entries }: CalendarProps) {
   return (
     <>
       {isMounted && (
-        <div className="max-w-5xl mx-auto mb-6">
-          <div className="flex justify-center">
+        <div className="max-w-5xl mx-auto mb-6 flex items-center justify-between">
+          {registeredCount > 15 ? (
             <ToggleGroup
               type="single"
-              value={viewMode}
+              value={selectedPage.toString()}
               onValueChange={(value) => {
-                if (value) setViewMode(value as ViewMode);
+                if (value === "1" || value === "2")
+                  setSelectedPage(Number(value) as 1 | 2);
               }}
               className="bg-muted"
             >
-              <ToggleGroupItem
-                value="calendar"
-                aria-label="カレンダー表示"
-                className="gap-2"
-              >
-                <CalendarIcon className="w-4 h-4" />
-                <span className="inline">カレンダー</span>
+              <ToggleGroupItem value="1" aria-label="Page 1" className="gap-2">
+                <span className="inline">Page 1</span>
               </ToggleGroupItem>
-              <ToggleGroupItem
-                value="stack"
-                aria-label="リスト表示"
-                className="gap-2"
-              >
-                <List className="w-4 h-4" />
-                <span className="inline">リスト</span>
+              <ToggleGroupItem value="2" aria-label="Page 2" className="gap-2">
+                <span className="inline">Page 2</span>
               </ToggleGroupItem>
             </ToggleGroup>
-          </div>
+          ) : (
+            <div />
+          )}
+
+          <ToggleGroup
+            type="single"
+            value={viewMode}
+            onValueChange={(value) => {
+              if (value) setViewMode(value as ViewMode);
+            }}
+            className="bg-muted"
+          >
+            <ToggleGroupItem
+              value="calendar"
+              aria-label="カレンダー表示"
+              className="gap-2"
+            >
+              <CalendarIcon className="w-4 h-4" />
+              <span className="hidden md:inline">カレンダー</span>
+            </ToggleGroupItem>
+            <ToggleGroupItem
+              value="stack"
+              aria-label="リスト表示"
+              className="gap-2"
+            >
+              <List className="w-4 h-4" />
+              <span className="hidden md:inline">リスト</span>
+            </ToggleGroupItem>
+          </ToggleGroup>
         </div>
       )}
 
@@ -91,6 +112,7 @@ export function Calendar({ entries }: CalendarProps) {
 
       <EntryDialog
         selectedDay={selectedDay}
+        selectedPage={selectedPage}
         onClose={() => {
           setSelectedDay(null);
         }}
