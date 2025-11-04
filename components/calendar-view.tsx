@@ -37,7 +37,7 @@ export function CalendarView({
   }
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-5xl mx-auto p-4">
       <div className="grid grid-cols-7 gap-2 md:gap-3 mb-2">
         {weekdays.map((day) => (
           <div
@@ -64,7 +64,7 @@ export function CalendarView({
               key={day}
               className={`
                 relative overflow-hidden transition-all duration-200
-                hover:scale-105 hover:shadow-lg
+                hover:scale-105 hover:shadow-lg py-0
                 ${
                   hasEntry
                     ? "bg-christmas-red border-christmas-gold/30"
@@ -86,10 +86,10 @@ export function CalendarView({
                 {hasEntry ? (
                   <div className="flex-1 flex flex-col justify-between gap-2">
                     <div className="flex-1">
-                      <p className="text-[10px] md:text-xs font-medium text-white/90 truncate">
+                      <p className="text-[10px] md:text-xs font-medium text-white/90 truncate h-5">
                         {entry.name}
                       </p>
-                      <p className="text-xs md:text-sm font-semibold text-white line-clamp-3 leading-tight break-words overflow-hidden">
+                      <p className="text-xs md:text-sm font-semibold text-white line-clamp-3 leading-tight break-words overflow-hidden h-13">
                         {entry.title}
                       </p>
                     </div>
@@ -100,7 +100,7 @@ export function CalendarView({
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex-1 h-6 px-2 text-[10px] md:text-xs text-white bg-white/10 hover:bg-white/20 rounded-md flex items-center justify-center gap-1 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
-                          aria-label={`12月${day}日の記事「${entry.title}」を開く（新しいタブ）`}
+                          aria-label={`12月${day}日の記事「${entry.title}」を開く`}
                         >
                           <ExternalLink
                             className="w-3 h-3"
@@ -129,17 +129,25 @@ export function CalendarView({
                     </div>
                   </div>
                 ) : (
-                  <div className="flex-1 flex items-center justify-center">
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() => handleEditClick(day)}
-                      className="h-8 px-3 text-xs md:text-sm text-muted-foreground hover:text-foreground hover:bg-muted"
-                      aria-label={`12月${day}日の記事を登録`}
-                    >
-                      <Edit className="w-3 h-3 mr-1" aria-hidden="true" />
-                      登録
-                    </Button>
+                  <div className="flex-1 flex flex-col justify-between gap-2">
+                    <div className="flex-1">
+                      {/* 作者分の高さを確保 */}
+                      <div className="text-[10px] md:text-xs font-medium opacity-0 select-none h-5"></div>
+                      {/* タイトル3行分の高さを確保 */}
+                      <div className="text-xs md:text-sm font-semibold leading-tight line-clamp-3 opacity-0 select-none h-13"></div>
+                    </div>
+                    <div className="flex gap-1.5 mt-auto">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => handleEditClick(day)}
+                        className="h-8 px-3 text-xs md:text-sm text-muted-foreground hover:text-foreground hover:bg-muted w-full"
+                        aria-label={`12月${day}日の記事を登録`}
+                      >
+                        <Edit className="w-3 h-3 mr-1" aria-hidden="true" />
+                        登録
+                      </Button>
+                    </div>
                   </div>
                 )}
               </div>

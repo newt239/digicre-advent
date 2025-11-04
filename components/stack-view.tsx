@@ -33,7 +33,7 @@ export function StackView({ getEntryForDay, handleEditClick }: StackViewProps) {
   const daysInMonth = 25;
 
   return (
-    <div className="max-w-3xl mx-auto space-y-3">
+    <div className="max-w-3xl mx-auto space-y-3 p-4">
       {Array.from({ length: daysInMonth }, (_, i) => i + 1).map((day) => {
         const entry = getEntryForDay(day);
         const hasEntry = !!entry;
@@ -52,7 +52,7 @@ export function StackView({ getEntryForDay, handleEditClick }: StackViewProps) {
               }
             `}
           >
-            <div className="p-4 md:p-6 flex flex-col gap-3">
+            <div className="p-4 flex flex-col gap-3">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3 flex-1 min-w-0">
                   <span

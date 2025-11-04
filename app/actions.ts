@@ -21,7 +21,6 @@ export async function getEntries(): Promise<CalendarEntry[]> {
       FROM advent_calendar_entries
       ORDER BY day ASC, page ASC
     `;
-    console.log(entries);
     return entries as CalendarEntry[];
   } catch (error) {
     console.error("[v0] Error fetching entries:", error);
