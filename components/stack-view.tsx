@@ -74,7 +74,7 @@ export function StackView({
                       <p className="text-sm md:text-base font-medium text-white/90 truncate">
                         {entry.name}
                       </p>
-                      <p className="text-base md:text-lg font-semibold text-white leading-tight truncate">
+                      <p className="text-base md:text-lg font-semibold text-white leading-tight line-clamp-2 break-words overflow-hidden">
                         {entry.title}
                       </p>
                     </div>

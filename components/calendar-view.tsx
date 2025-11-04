@@ -93,7 +93,7 @@ export function CalendarView({
                       <p className="text-[10px] md:text-xs font-medium text-white/90 truncate">
                         {entry.name}
                       </p>
-                      <p className="text-xs md:text-sm font-semibold text-white line-clamp-2 leading-tight">
+                      <p className="text-xs md:text-sm font-semibold text-white line-clamp-2 leading-tight break-words overflow-hidden">
                         {entry.title}
                       </p>
                     </div>

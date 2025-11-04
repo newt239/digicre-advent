@@ -1,6 +1,13 @@
 import { Calendar } from "@/components/calendar";
 import { getEntries } from "@/app/actions";
 import { ExportButton } from "@/components/export-button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Info } from "lucide-react";
 
 export default async function Home() {
   const entries = await getEntries();
@@ -19,6 +26,31 @@ export default async function Home() {
             12月25日まで、1日1本の記事をみんなで投稿
           </p>
         </header>
+
+        <div className="mb-8 md:mb-12 max-w-2xl mx-auto">
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="what-is-advent-calendar">
+              <AccordionTrigger>
+                <div className="flex items-center">
+                  <Info className="w-4 h-4 mr-2" aria-hidden="true" />
+                  アドベントカレンダーとは？
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                アドベントカレンダーは、12月1日から12月25日（クリスマス）までの期間に、毎日1本ずつ記事を投稿していくイベントです。記事の内容は問いません。自分の創作に関することや最近あったできごとなど、自由に投稿してください。昨年度企画紹介記事「
+                <a
+                  href="https://note.com/muyuu_/n/na6b4dba212e8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-christmas-green underline"
+                >
+                  今年も来たぞ！デジクリアドカレ2024
+                </a>
+                」も参考にしてください。
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
 
         <Calendar entries={entries} />
 

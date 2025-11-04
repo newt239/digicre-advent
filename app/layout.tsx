@@ -1,25 +1,25 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { M_PLUS_Rounded_1c } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import { M_PLUS_Rounded_1c } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import "./globals.css";
 
-const mPlusRounded = M_PLUS_Rounded_1c({ 
+const mPlusRounded = M_PLUS_Rounded_1c({
   subsets: ["latin"],
   weight: ["400", "700", "900"],
-  variable: "--font-m-plus-rounded"
-})
+  variable: "--font-m-plus-rounded",
+});
 
 export const metadata: Metadata = {
-  title: "アドベントカレンダー 2025",
-  description: "12月25日まで、1日1本の記事をみんなで投稿していくアドベントカレンダー",
-  generator: "v0.app",
-}
+  title: "デジクリ アドベントカレンダー 2025",
+  description:
+    "12月25日まで、1日1本の記事をみんなで投稿していくアドベントカレンダー",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="ja">
@@ -28,5 +28,5 @@ export default function RootLayout({
         <Analytics />
       </body>
     </html>
-  )
+  );
 }
