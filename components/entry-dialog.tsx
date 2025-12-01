@@ -24,6 +24,22 @@ type EntryDialogProps = {
   existingEntry?: CalendarEntry;
 };
 
+function maskUrlForDisplay(url: string): string {
+  if (!url) return "";
+
+  try {
+    const parsedUrl = new URL(url);
+    const maskedPath = parsedUrl.pathname && parsedUrl.pathname !== "/" ? "/****" : parsedUrl.pathname;
+    const maskedSearch = parsedUrl.search ? "?****" : "";
+    const maskedHash = parsedUrl.hash ? "#****" : "";
+
+    return `${parsedUrl.protocol}//${parsedUrl.host}${maskedPath}${maskedSearch}${maskedHash}`;
+  } catch {
+    if (url.length <= 8) return `${url.slice(0, 4)}****`;
+    return `${url.slice(0, 6)}****`;
+  }
+}
+
 export function EntryDialog({
   selectedDay,
   selectedPage,
@@ -34,6 +50,9 @@ export function EntryDialog({
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
+  const [originalUrl, setOriginalUrl] = useState("");
+  const [isUrlMasked, setIsUrlMasked] = useState(false);
+  const [isUrlDirty, setIsUrlDirty] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -41,25 +60,53 @@ export function EntryDialog({
     if (existingEntry) {
       setName(existingEntry.name);
       setTitle(existingEntry.title);
-      setUrl(existingEntry.url || "");
+      const existingUrl = existingEntry.url || "";
+      setOriginalUrl(existingUrl);
+      setUrl(existingUrl ? maskUrlForDisplay(existingUrl) : "");
+      setIsUrlMasked(Boolean(existingUrl));
+      setIsUrlDirty(false);
     } else {
       setName("");
       setTitle("");
       setUrl("");
+      setOriginalUrl("");
+      setIsUrlMasked(false);
+      setIsUrlDirty(false);
     }
   }, [existingEntry, selectedDay]);
+
+  const handleUrlChange = (value: string) => {
+    const maskedOriginalUrl = maskUrlForDisplay(originalUrl);
+
+    if (isUrlMasked && value !== maskedOriginalUrl) {
+      setIsUrlMasked(false);
+    }
+
+    setIsUrlDirty(
+      isUrlMasked ? value !== maskedOriginalUrl : value !== originalUrl
+    );
+    setUrl(value);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedDay && name && title) {
       setIsSubmitting(true);
 
+      const maskedOriginalUrl = maskUrlForDisplay(originalUrl);
+      const urlToSave =
+        existingEntry && originalUrl && !isUrlDirty
+          ? originalUrl
+          : url === maskedOriginalUrl
+            ? originalUrl
+            : url;
+
       const result = await saveEntry({
         day: selectedDay,
         page: selectedPage,
         name,
         title,
-        url: url || "",
+        url: urlToSave || "",
       });
 
       setIsSubmitting(false);
@@ -142,9 +189,14 @@ export function EntryDialog({
               id="url"
               type="url"
               value={url}
-              onChange={(e) => setUrl(e.target.value)}
+              onChange={(e) => handleUrlChange(e.target.value)}
               placeholder="https://example.com/article"
             />
+            {isUrlMasked && originalUrl && (
+              <p className="text-xs text-muted-foreground">
+                当日までURLの一部が非表示になっている
+              </p>
+            )}
           </div>
 
           <div className="flex gap-3 pt-4">

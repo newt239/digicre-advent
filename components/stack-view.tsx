@@ -21,6 +21,15 @@ function isValidUrl(urlString: string): boolean {
   }
 }
 
+function isDayAvailable(day: number): boolean {
+  const eventYear = 2025;
+  const today = new Date();
+  const releaseDate = new Date(eventYear, 11, day);
+  releaseDate.setHours(0, 0, 0, 0);
+
+  return today >= releaseDate;
+}
+
 function getDayOfWeek(day: number): string {
   // 2025年12月1日は月曜日
   const date = new Date(2025, 11, day); // 月は0始まりなので11が12月
@@ -38,6 +47,7 @@ export function StackView({ getEntryForDay, handleEditClick }: StackViewProps) {
         const entry = getEntryForDay(day);
         const hasEntry = !!entry;
         const hasValidUrl = entry && isValidUrl(entry.url);
+        const canOpen = hasValidUrl && isDayAvailable(day);
 
         return (
           <Card
@@ -84,7 +94,7 @@ export function StackView({ getEntryForDay, handleEditClick }: StackViewProps) {
 
               {hasEntry ? (
                 <div className="flex gap-2 mt-2">
-                  {hasValidUrl && (
+                  {canOpen && (
                     <Link
                       href={entry.url!}
                       target="_blank"

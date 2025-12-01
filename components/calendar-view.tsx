@@ -21,6 +21,15 @@ function isValidUrl(urlString: string): boolean {
   }
 }
 
+function isDayAvailable(day: number): boolean {
+  const eventYear = 2025;
+  const today = new Date();
+  const releaseDate = new Date(eventYear, 11, day);
+  releaseDate.setHours(0, 0, 0, 0);
+
+  return today >= releaseDate;
+}
+
 export function CalendarView({
   getEntryForDay,
   handleEditClick,
@@ -58,6 +67,7 @@ export function CalendarView({
           const entry = getEntryForDay(day);
           const hasEntry = !!entry;
           const hasValidUrl = entry && isValidUrl(entry.url);
+          const canOpen = hasValidUrl && isDayAvailable(day);
 
           return (
             <Card
@@ -94,7 +104,7 @@ export function CalendarView({
                       </p>
                     </div>
                     <div className="flex gap-1.5 mt-auto">
-                      {hasValidUrl && (
+                      {canOpen && (
                         <Link
                           href={entry.url!}
                           target="_blank"
@@ -114,17 +124,17 @@ export function CalendarView({
                         variant="ghost"
                         onClick={() => handleEditClick(day)}
                         className={`${
-                          hasValidUrl
+                          canOpen
                             ? "h-6 px-2 text-[10px] md:text-xs text-white hover:bg-white/20 hover:text-white shrink-0"
                             : "h-8 px-3 text-xs md:text-sm text-white hover:bg-white/20 hover:text-white w-full"
                         }`}
                         aria-label={`12月${day}日の記事を編集`}
                       >
                         <Edit
-                          className={`w-3 h-3 ${!hasValidUrl ? "mr-1" : ""}`}
+                          className={`w-3 h-3 ${!canOpen ? "mr-1" : ""}`}
                           aria-hidden="true"
                         />
-                        {!hasValidUrl && "編集"}
+                        {!canOpen && "編集"}
                       </Button>
                     </div>
                   </div>
