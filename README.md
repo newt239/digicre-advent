@@ -1,30 +1,25 @@
-# カレンダーアプリケーション作成
+# digicre-advent
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+https://advent-25.digicre.net/
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/newts-projects/v0-)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/sffJfIwcOGo)
+## 開発方法
 
-## Overview
+Node.js v24 以上、 pnpm v10 以上が必要です。
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+### 依存パッケージのインストール
 
-## Deployment
+```bash
+pnpm install
+```
 
-Your project is live at:
+### 開発サーバーの起動
 
-**[https://vercel.com/newts-projects/v0-](https://vercel.com/newts-projects/v0-)**
+```bash
+pnpm dev
+```
 
-## Build your app
+### ビルド
 
-Continue building your app on:
-
-**[https://v0.app/chat/sffJfIwcOGo](https://v0.app/chat/sffJfIwcOGo)**
-
-## How It Works
-
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+```bash
+pnpm build
+```
