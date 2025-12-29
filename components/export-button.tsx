@@ -8,10 +8,10 @@ import { useState } from "react"
 export function ExportButton() {
   const [isExporting, setIsExporting] = useState(false)
 
-  const handleExport = () => {
+  const handleExport = async () => {
     setIsExporting(true)
     try {
-      const csvContent = exportToCSV()
+      const csvContent = await exportToCSV()
 
       // Create blob and download
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" })
