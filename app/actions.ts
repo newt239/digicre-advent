@@ -1,5 +1,3 @@
-"use server";
-
 import { sql } from "@/lib/db";
 
 export type CalendarEntry = {
@@ -30,20 +28,5 @@ export async function getEntries(): Promise<CalendarEntry[]> {
       );
     }
     return [];
-  }
-}
-
-export async function deleteEntry(
-  day: number,
-  page: number
-): Promise<{ success: boolean; error?: string }> {
-  try {
-    await sql`
-      DELETE FROM advent_calendar_entries WHERE day = ${day} AND page = ${page}
-    `;
-    return { success: true };
-  } catch (error) {
-    console.error("[v0] Error deleting entry:", error);
-    return { success: false, error: "Failed to delete entry" };
   }
 }
