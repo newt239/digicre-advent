@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import type { CalendarEntry } from "@/app/actions";
 import { Edit, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { ENABLE_EDIT_MODE } from "@/lib/config";
 
 type CalendarViewProps = {
   getEntryForDay: (day: number) => CalendarEntry | undefined;
-  handleEditClick: (day: number) => void;
+  handleEditClick?: (day: number) => void;
 };
 
 function isValidUrl(urlString: string): boolean {
@@ -109,23 +110,25 @@ export function CalendarView({
                           開く
                         </Link>
                       )}
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => handleEditClick(day)}
-                        className={`${
-                          hasValidUrl
-                            ? "h-6 px-2 text-[10px] md:text-xs text-white hover:bg-white/20 hover:text-white shrink-0"
-                            : "h-8 px-3 text-xs md:text-sm text-white hover:bg-white/20 hover:text-white w-full"
-                        }`}
-                        aria-label={`12月${day}日の記事を編集`}
-                      >
-                        <Edit
-                          className={`w-3 h-3 ${!hasValidUrl ? "mr-1" : ""}`}
-                          aria-hidden="true"
-                        />
-                        {!hasValidUrl && "編集"}
-                      </Button>
+                      {ENABLE_EDIT_MODE && handleEditClick && (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => handleEditClick(day)}
+                          className={`${
+                            hasValidUrl
+                              ? "h-6 px-2 text-[10px] md:text-xs text-white hover:bg-white/20 hover:text-white shrink-0"
+                              : "h-8 px-3 text-xs md:text-sm text-white hover:bg-white/20 hover:text-white w-full"
+                          }`}
+                          aria-label={`12月${day}日の記事を編集`}
+                        >
+                          <Edit
+                            className={`w-3 h-3 ${!hasValidUrl ? "mr-1" : ""}`}
+                            aria-hidden="true"
+                          />
+                          {!hasValidUrl && "編集"}
+                        </Button>
+                      )}
                     </div>
                   </div>
                 ) : (
@@ -137,16 +140,18 @@ export function CalendarView({
                       <div className="text-xs md:text-sm font-semibold leading-tight line-clamp-3 opacity-0 select-none h-13"></div>
                     </div>
                     <div className="flex gap-1.5 mt-auto">
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => handleEditClick(day)}
-                        className="h-8 px-3 text-xs md:text-sm text-muted-foreground hover:text-foreground hover:bg-muted w-full"
-                        aria-label={`12月${day}日の記事を登録`}
-                      >
-                        <Edit className="w-3 h-3 mr-1" aria-hidden="true" />
-                        登録
-                      </Button>
+                      {ENABLE_EDIT_MODE && handleEditClick && (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => handleEditClick(day)}
+                          className="h-8 px-3 text-xs md:text-sm text-muted-foreground hover:text-foreground hover:bg-muted w-full"
+                          aria-label={`12月${day}日の記事を登録`}
+                        >
+                          <Edit className="w-3 h-3 mr-1" aria-hidden="true" />
+                          登録
+                        </Button>
+                      )}
                     </div>
                   </div>
                 )}

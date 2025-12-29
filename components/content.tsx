@@ -6,6 +6,7 @@ import { EntryDialog } from "@/components/entry-dialog";
 import { CalendarView } from "@/components/calendar-view";
 import { StackView } from "@/components/stack-view";
 import Menu from "@/components/menu";
+import { ENABLE_EDIT_MODE } from "@/lib/config";
 
 type ContentProps = {
   entries: CalendarEntry[];
@@ -38,7 +39,9 @@ export function Content({ entries }: ContentProps) {
   };
 
   const handleEditClick = (day: number) => {
-    setSelectedDay(day);
+    if (ENABLE_EDIT_MODE) {
+      setSelectedDay(day);
+    }
   };
 
   return (
@@ -56,24 +59,26 @@ export function Content({ entries }: ContentProps) {
         {viewMode === "calendar" ? (
           <CalendarView
             getEntryForDay={getEntryForDay}
-            handleEditClick={handleEditClick}
+            handleEditClick={ENABLE_EDIT_MODE ? handleEditClick : undefined}
           />
         ) : (
           <StackView
             getEntryForDay={getEntryForDay}
-            handleEditClick={handleEditClick}
+            handleEditClick={ENABLE_EDIT_MODE ? handleEditClick : undefined}
           />
         )}
       </div>
 
-      <EntryDialog
-        selectedDay={selectedDay}
-        selectedPage={selectedPage}
-        onClose={() => {
-          setSelectedDay(null);
-        }}
-        existingEntry={selectedDay ? getEntryForDay(selectedDay) : undefined}
-      />
+      {ENABLE_EDIT_MODE && (
+        <EntryDialog
+          selectedDay={selectedDay}
+          selectedPage={selectedPage}
+          onClose={() => {
+            setSelectedDay(null);
+          }}
+          existingEntry={selectedDay ? getEntryForDay(selectedDay) : undefined}
+        />
+      )}
     </>
   );
 }

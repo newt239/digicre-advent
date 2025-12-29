@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import type { CalendarEntry } from "@/app/actions";
 import { Edit, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { ENABLE_EDIT_MODE } from "@/lib/config";
 
 type StackViewProps = {
   getEntryForDay: (day: number) => CalendarEntry | undefined;
-  handleEditClick: (day: number) => void;
+  handleEditClick?: (day: number) => void;
 };
 
 function isValidUrl(urlString: string): boolean {
@@ -29,7 +30,10 @@ function getDayOfWeek(day: number): string {
   return days[dayOfWeek];
 }
 
-export function StackView({ getEntryForDay, handleEditClick }: StackViewProps) {
+export function StackView({
+  getEntryForDay,
+  handleEditClick,
+}: StackViewProps) {
   const daysInMonth = 25;
 
   return (
@@ -96,34 +100,39 @@ export function StackView({ getEntryForDay, handleEditClick }: StackViewProps) {
                       開く
                     </Link>
                   )}
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    onClick={() => handleEditClick(day)}
-                    className={`flex-1 ${
-                      hasValidUrl
-                        ? "h-9 px-4 text-sm text-white hover:bg-white/20 hover:text-white"
-                        : "h-9 px-4 text-sm text-white hover:bg-white/20 hover:text-white"
-                    }`}
-                    aria-label={`12月${day}日の記事を編集`}
-                  >
-                    <Edit className="w-4 h-4 mr-2" aria-hidden="true" />
-                    編集
-                  </Button>
+                  {ENABLE_EDIT_MODE && handleEditClick && (
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => handleEditClick(day)}
+                      className={`flex-1 ${
+                        hasValidUrl
+                          ? "h-9 px-4 text-sm text-white hover:bg-white/20 hover:text-white"
+                          : "h-9 px-4 text-sm text-white hover:bg-white/20 hover:text-white"
+                      }`}
+                      aria-label={`12月${day}日の記事を編集`}
+                    >
+                      <Edit className="w-4 h-4 mr-2" aria-hidden="true" />
+                      編集
+                    </Button>
+                  )}
                 </div>
               ) : (
-                <div className="mt-2 flex justify-center">
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    onClick={() => handleEditClick(day)}
-                    className="h-9 px-4 text-sm text-muted-foreground hover:text-foreground hover:bg-muted"
-                    aria-label={`12月${day}日の記事を登録`}
-                  >
-                    <Edit className="w-4 h-4 mr-2" aria-hidden="true" />
-                    登録
-                  </Button>
-                </div>
+                ENABLE_EDIT_MODE &&
+                handleEditClick && (
+                  <div className="mt-2 flex justify-center">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => handleEditClick(day)}
+                      className="h-9 px-4 text-sm text-muted-foreground hover:text-foreground hover:bg-muted"
+                      aria-label={`12月${day}日の記事を登録`}
+                    >
+                      <Edit className="w-4 h-4 mr-2" aria-hidden="true" />
+                      登録
+                    </Button>
+                  </div>
+                )
               )}
             </div>
           </Card>

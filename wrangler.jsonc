@@ -1,0 +1,7 @@
+{
+  "name": "advent-25",
+  "compatibility_date": "2025-12-29",
+  "assets": {
+    "directory": ".next/out"
+  }
+}
