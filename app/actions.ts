@@ -31,30 +31,6 @@ export async function getEntries(): Promise<CalendarEntry[]> {
   }
 }
 
-export async function exportToCSV(): Promise<string> {
-  const entries = await getEntries();
-
-  // CSV header in English
-  const header = "Day,Page,Name,Title,URL,Created At,Updated At\n";
-
-  // CSV rows
-  const rows = entries
-    .map((entry) => {
-      const day = entry.day;
-      const page = entry.page;
-      const name = `"${entry.name.replace(/"/g, '""')}"`;
-      const title = `"${entry.title.replace(/"/g, '""')}"`;
-      const url = entry.url ? `"${entry.url.replace(/"/g, '""')}"` : '""';
-      const createdAt = entry.created_at || "";
-      const updatedAt = entry.updated_at || "";
-
-      return `${day},${page},${name},${title},${url},${createdAt},${updatedAt}`;
-    })
-    .join("\n");
-
-  return header + rows;
-}
-
 export async function saveEntry(
   entry: CalendarEntry
 ): Promise<{ success: boolean; error?: string }> {

@@ -13,6 +13,8 @@ import { Info } from "lucide-react";
 
 type ViewMode = "calendar" | "stack";
 
+import type { CalendarEntry } from "@/app/actions";
+
 type MenuProps = {
   registeredCount: number;
   selectedPage: 1 | 2;
@@ -20,6 +22,7 @@ type MenuProps = {
   viewMode: ViewMode;
   setViewMode: (mode: ViewMode) => void;
   isMounted: boolean;
+  entries: CalendarEntry[];
 };
 
 export default function Menu({
@@ -29,6 +32,7 @@ export default function Menu({
   viewMode,
   setViewMode,
   isMounted,
+  entries,
 }: MenuProps) {
   return (
     <div className="md:p-4 w-full md:w-72 flex flex-col md:sticky md:top-6">
@@ -126,7 +130,7 @@ export default function Menu({
             </ToggleGroup>
 
             <div className="pt-2 hidden md:block">
-              <ExportButton />
+              <ExportButton entries={entries} />
             </div>
           </div>
         )}

@@ -2,16 +2,42 @@
 
 import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
-import { exportToCSV } from "@/app/actions"
+import type { CalendarEntry } from "@/app/actions"
 import { useState } from "react"
 
-export function ExportButton() {
+type ExportButtonProps = {
+  entries: CalendarEntry[];
+};
+
+function generateCSV(entries: CalendarEntry[]): string {
+  // CSV header in English
+  const header = "Day,Page,Name,Title,URL,Created At,Updated At\n";
+
+  // CSV rows
+  const rows = entries
+    .map((entry) => {
+      const day = entry.day;
+      const page = entry.page;
+      const name = `"${entry.name.replace(/"/g, '""')}"`;
+      const title = `"${entry.title.replace(/"/g, '""')}"`;
+      const url = entry.url ? `"${entry.url.replace(/"/g, '""')}"` : '""';
+      const createdAt = entry.created_at || "";
+      const updatedAt = entry.updated_at || "";
+
+      return `${day},${page},${name},${title},${url},${createdAt},${updatedAt}`;
+    })
+    .join("\n");
+
+  return header + rows;
+}
+
+export function ExportButton({ entries }: ExportButtonProps) {
   const [isExporting, setIsExporting] = useState(false)
 
-  const handleExport = async () => {
+  const handleExport = () => {
     setIsExporting(true)
     try {
-      const csvContent = await exportToCSV()
+      const csvContent = generateCSV(entries)
 
       // Create blob and download
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" })

@@ -53,6 +53,7 @@ export function Content({ entries }: ContentProps) {
         viewMode={viewMode}
         setViewMode={setViewMode}
         isMounted={isMounted}
+        entries={entries}
       />
 
       <div className="flex-1 overflow-y-scroll h-screen">
