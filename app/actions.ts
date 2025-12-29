@@ -1,3 +1,5 @@
+"use server";
+
 import { sql } from "@/lib/db";
 
 export type CalendarEntry = {
@@ -28,39 +30,6 @@ export async function getEntries(): Promise<CalendarEntry[]> {
       );
     }
     return [];
-  }
-}
-
-export async function saveEntry(
-  entry: CalendarEntry
-): Promise<{ success: boolean; error?: string }> {
-  try {
-    const { day, page, name, title, url } = entry;
-
-    // Check if entry exists
-    const existing = await sql`
-      SELECT id FROM advent_calendar_entries WHERE day = ${day} AND page = ${page}
-    `;
-
-    if (existing.length > 0) {
-      // Update existing entry
-      await sql`
-        UPDATE advent_calendar_entries
-        SET name = ${name}, title = ${title}, url = ${url}, updated_at = CURRENT_TIMESTAMP
-        WHERE day = ${day} AND page = ${page}
-      `;
-    } else {
-      // Insert new entry
-      await sql`
-        INSERT INTO advent_calendar_entries (day, page, name, title, url)
-        VALUES (${day}, ${page}, ${name}, ${title}, ${url})
-      `;
-    }
-
-    return { success: true };
-  } catch (error) {
-    console.error("[v0] Error saving entry:", error);
-    return { success: false, error: "Failed to save entry" };
   }
 }
 

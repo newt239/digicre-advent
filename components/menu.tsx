@@ -7,13 +7,10 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { ExportButton } from "@/components/export-button";
 import { Calendar as CalendarIcon, List } from "lucide-react";
 import { Info } from "lucide-react";
 
 type ViewMode = "calendar" | "stack";
-
-import type { CalendarEntry } from "@/app/actions";
 
 type MenuProps = {
   registeredCount: number;
@@ -22,7 +19,6 @@ type MenuProps = {
   viewMode: ViewMode;
   setViewMode: (mode: ViewMode) => void;
   isMounted: boolean;
-  entries: CalendarEntry[];
 };
 
 export default function Menu({
@@ -32,7 +28,6 @@ export default function Menu({
   viewMode,
   setViewMode,
   isMounted,
-  entries,
 }: MenuProps) {
   return (
     <div className="md:p-4 w-full md:w-72 flex flex-col md:sticky md:top-6">
@@ -128,10 +123,6 @@ export default function Menu({
                 <span className="hidden md:inline">リスト</span>
               </ToggleGroupItem>
             </ToggleGroup>
-
-            <div className="pt-2 hidden md:block">
-              <ExportButton entries={entries} />
-            </div>
           </div>
         )}
       </div>
